@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dubai Careers Pro</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+scroll-behavior:smooth;
+}
+
+:root{
+--primary:#00d4ff;
+--secondary:#007cf0;
+--bg:#f4f8ff;
+--text:#111;
+--card:rgba(255,255,255,.7);
+}
+
+.dark{
+--bg:#0f172a;
+--text:#fff;
+--card:rgba(255,255,255,.05);
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+overflow-x:hidden;
+}
+
+/* LOADER */
+
+.loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.spinner{
+width:80px;
+height:80px;
+border:8px solid #333;
+border-top:8px solid cyan;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+/* HEADER */
+
+header{
+position:sticky;
+top:0;
+backdrop-filter:blur(20px);
+background:rgba(255,255,255,.1);
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+background:linear-gradient(90deg,#00d4ff,#007cf0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+text-decoration:none;
+margin:0 15px;
+color:var(--text);
+font-weight:600;
+}
+
+.theme-btn{
+padding:10px 15px;
+border:none;
+border-radius:50px;
+background:linear-gradient(90deg,#00d4ff,#007cf0);
+color:white;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+min-height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+background:
+linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),
+url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c");
+background-size:cover;
+background-position:center;
+color:white;
+}
+
+.hero h1{
+font-size:4rem;
+margin-bottom:20px;
+animation:fade 2s;
+}
+
+.hero p{
+font-size:1.2rem;
+max-width:700px;
+margin:auto;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* SEARCH */
+
+.search-section{
+padding:50px 5%;
+text-align:center;
+}
+
+.search-box{
+width:100%;
+max-width:700px;
+padding:15px;
+border-radius:50px;
+border:none;
+outline:none;
+font-size:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:40px 5%;
+}
+
+.stat{
+background:var(--card);
+backdrop-filter:blur(15px);
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+/* JOBS */
+
+.jobs{
+padding:50px 5%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:25px;
+}
+
+.job{
+background:var(--card);
+backdrop-filter:blur(20px);
+padding:25px;
+border-radius:25px;
+transition:.4s;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.job:hover{
+transform:translateY(-10px);
+}
+
+.job h3{
+margin-bottom:15px;
+color:#007cf0;
+}
+
+.job p{
+margin:8px 0;
+}
+
+.apply{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:50px;
+background:linear-gradient(90deg,#00d4ff,#007cf0);
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.apply:hover{
+transform:scale(1.05);
+}
+
+/* FOOTER */
+
+footer{
+padding:30px;
+text-align:center;
+background:#111;
+color:white;
+}
+
+/* TOP BUTTON */
+
+.topBtn{
+position:fixed;
+right:20px;
+bottom:20px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#007cf0;
+color:white;
+font-size:22px;
+cursor:pointer;
+display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:2.3rem;
+}
+
+nav{
+display:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="loader">
+<div class="spinner"></div>
+</div>
+
+<header>
+
+<div class="logo">Dubai Careers Pro</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#jobs">Jobs</a>
+<a href="#stats">Stats</a>
+<a href="#">Contact</a>
+</nav>
+
+<button class="theme-btn" onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+</header>
+
+<section class="hero">
+
+<div>
+<h1>Find High Salary Jobs In Dubai</h1>
+
+<p>
+Professional Dubai Career Platform with Easy Jobs,
+High Salaries, Fast Hiring Process and Modern Career Opportunities.
+</p>
+</div>
+
+</section>
+
+<section class="search-section">
+
+<h2>Search Jobs</h2>
+<br>
+
+<input
+type="text"
+id="search"
+class="search-box"
+placeholder="Search jobs..."
+onkeyup="searchJobs()">
+
+<p id="error"></p>
+
+</section>
+
+<section class="stats" id="stats">
+
+<div class="stat">
+<h2>500+</h2>
+<p>Active Jobs</p>
+</div>
+
+<div class="stat">
+<h2>150+</h2>
+<p>Companies</p>
+</div>
+
+<div class="stat">
+<h2>20K+</h2>
+<p>Applicants</p>
+</div>
+
+<div class="stat">
+<h2>95%</h2>
+<p>Success Rate</p>
+</div>
+
+</section>
+
+<section class="jobs" id="jobs">
+
+<div class="job">
+<h3>Office Assistant</h3>
+<p>💰 Salary: AED 4500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay, Dubai</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+<div class="job">
+<h3>Data Entry Operator</h3>
+<p>💰 Salary: AED 5000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Deira, Dubai</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+<div class="job">
+<h3>Receptionist</h3>
+<p>💰 Salary: AED 6000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Marina, Dubai</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+<div class="job">
+<h3>Customer Service Agent</h3>
+<p>💰 Salary: AED 6500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Downtown Dubai</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+<div class="job">
+<h3>Hotel Staff</h3>
+<p>💰 Salary: AED 7000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Palm Jumeirah</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+<div class="job">
+<h3>Hotel Staff</h3>
+<p>💰 Salary: AED 7000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Palm Jumeirah</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Office Assistant</h3>
+<p>💰 Salary: AED 6000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Data Entry Operator</h3>
+<p>💰 Salary: AED 6500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Deira</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Receptionist</h3>
+<p>💰 Salary: AED 7000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Downtown Dubai</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Customer Service Executive</h3>
+<p>💰 Salary: AED 8000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Marina</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Sales Associate</h3>
+<p>💰 Salary: AED 7500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Mall of the Emirates</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Cashier</h3>
+<p>💰 Salary: AED 6500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Al Barsha</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Warehouse Assistant</h3>
+<p>💰 Salary: AED 7000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Jebel Ali</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Delivery Coordinator</h3>
+<p>💰 Salary: AED 7500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Al Quoz</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>HR Assistant</h3>
+<p>💰 Salary: AED 9000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Marketing Executive</h3>
+<p>💰 Salary: AED 10000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Internet City</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Account Assistant</h3>
+<p>💰 Salary: AED 8500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Sheikh Zayed Road</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Graphic Designer</h3>
+<p>💰 Salary: AED 12000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Media City</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>IT Support Technician</h3>
+<p>💰 Salary: AED 11000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Silicon Oasis</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Web Developer</h3>
+<p>💰 Salary: AED 15000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Internet City</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Software Engineer</h3>
+<p>💰 Salary: AED 18000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Silicon Oasis</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Digital Marketing Specialist</h3>
+<p>💰 Salary: AED 12000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Media City</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Content Writer</h3>
+<p>💰 Salary: AED 9000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Downtown Dubai</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Administrative Assistant</h3>
+<p>💰 Salary: AED 7000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Deira</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Store Supervisor</h3>
+<p>💰 Salary: AED 9500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Al Barsha</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Call Center Agent</h3>
+<p>💰 Salary: AED 7500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Security Officer</h3>
+<p>💰 Salary: AED 8000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Jumeirah</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Logistics Coordinator</h3>
+<p>💰 Salary: AED 11000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Jebel Ali</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Procurement Assistant</h3>
+<p>💰 Salary: AED 9500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Al Quoz</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Project Coordinator</h3>
+<p>💰 Salary: AED 13000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Junior Accountant</h3>
+<p>💰 Salary: AED 10000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Creek</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Customer Relations Officer</h3>
+<p>💰 Salary: AED 9000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Marina</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Business Development Executive</h3>
+<p>💰 Salary: AED 14000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Sheikh Zayed Road</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>E-Commerce Assistant</h3>
+<p>💰 Salary: AED 8500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai South</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Operations Executive</h3>
+<p>💰 Salary: AED 12000</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Business Bay</p>
+<button class="apply" onclick="applyJob()">Apply Now</button>
+</div>
+
+<div class="job">
+<h3>Airport Ground Staff</h3>
+<p>💰 Salary: AED 8500</p>
+<p>⏰ Duty Time: 8 Hours</p>
+<p>📍 Address: Dubai Airport</p>
+<button class="apply" onclick="applyJob()">
+Apply Now
+</button>
+</div>
+
+</section>
+
+<footer>
+
+<h3>Dubai Careers Pro</h3>
+<p>Modern Professional Dubai Job Platform</p>
+
+</footer>
+
+<button class="topBtn" id="topBtn">
+↑
+</button>
+
+<script>
+
+/* Loader */
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+document.querySelector(".loader").style.display="none";
+
+},1500);
+
+});
+
+/* Theme */
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+}
+
+/* Search */
+
+function searchJobs(){
+
+let input =
+document.getElementById("search")
+.value.toLowerCase();
+
+let jobs =
+document.querySelectorAll(".job");
+
+let found = false;
+
+jobs.forEach(job=>{
+
+if(job.innerText.toLowerCase()
+.includes(input))
+{
+job.style.display="block";
+found=true;
+}
+else{
+job.style.display="none";
+}
+
+});
+
+document.getElementById("error")
+.innerHTML =
+found ? "" :
+"❌ No jobs found";
+
+}
+
+/* Apply */
+
+function applyJob(){
+
+window.location.href =
+"pay.html";
+
+}
+
+/* Top Button */
+
+let btn =
+document.getElementById("topBtn");
+
+window.onscroll=function(){
+
+if(document.documentElement.scrollTop>300){
+
+btn.style.display="block";
+
+}else{
+
+btn.style.display="none";
+
+}
+
+};
+
+btn.onclick=function(){
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+/* Scroll Animation */
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity=1;
+entry.target.style.transform=
+"translateY(0)";
+
+}
+
+});
+
+});
+
+document.querySelectorAll(".job")
+.forEach(el=>{
+
+el.style.opacity=0;
+el.style.transform=
+"translateY(50px)";
+el.style.transition=".8s";
+
+observer.observe(el);
+
+});
+
+</script>
+
+</body>
+</html>
