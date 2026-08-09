@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PayGift — Special Offer</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6f8;
+    color:#17221c;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:760px;
+    background:
+        radial-gradient(circle at 80% 25%, rgba(255,255,255,.18), transparent 20%),
+        linear-gradient(145deg,#07883f,#009b68 55%,#008f98);
+    padding:0 20px 70px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    right:-100px;
+    top:100px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
+    left:-100px;
+    bottom:80px;
+}
+
+/* ===== LOGO ===== */
+
+.logo-wrap{
+    width:285px;
+    height:82px;
+    background:#fff;
+    margin:0 auto 35px;
+    border-radius:0 0 32px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    font-size:40px;
+    font-weight:800;
+    letter-spacing:-2px;
+}
+
+.logo span{
+    color:#19a65b;
+}
+
+.logo small{
+    font-size:10px;
+    vertical-align:top;
+    color:#555;
+    letter-spacing:0;
+}
+
+/* ===== OFFER ===== */
+
+.offer{
+    max-width:950px;
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+.offer-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:35px;
+}
+
+.offer-text{
+    flex:1;
+}
+
+.offer-text h1{
+    color:white;
+    font-size:48px;
+    line-height:1.08;
+    font-weight:800;
+    text-shadow:0 3px 5px rgba(0,0,0,.25);
+    margin-bottom:30px;
+}
+
+.offer-text p{
+    color:#fff;
+    font-size:20px;
+    line-height:1.55;
+    margin-bottom:20px;
+}
+
+/* ===== GIFT ===== */
+
+.gift{
+    width:310px;
+    min-width:310px;
+    height:270px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.gift-box{
+    width:210px;
+    height:135px;
+    background:linear-gradient(135deg,#f6e8b7,#fff);
+    border:3px solid rgba(255,255,255,.7);
+    position:relative;
+    transform:perspective(500px) rotateX(10deg);
+    box-shadow:0 18px 35px rgba(0,0,0,.22);
+}
+
+.gift-box::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    transform:translateX(-50%);
+    width:42px;
+    height:100%;
+    background:#16a66b;
+}
+
+.gift-lid{
+    position:absolute;
+    width:240px;
+    height:48px;
+    background:#fff0c7;
+    border:3px solid rgba(255,255,255,.8);
+    top:55px;
+    left:50%;
+    transform:translateX(-50%) rotate(-4deg);
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.ribbon{
+    position:absolute;
+    width:30px;
+    height:90px;
+    background:#11a96b;
+    left:50%;
+    top:-35px;
+    transform:translateX(-50%) rotate(5deg);
+    border-radius:10px;
+}
+
+.cash{
+    position:absolute;
+    background:#fff;
+    color:#15784b;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,.18);
+}
+
+.cash.one{
+    top:20px;
+    right:20px;
+    transform:rotate(8deg);
+}
+
+.cash.two{
+    bottom:30px;
+    left:5px;
+    transform:rotate(-12deg);
+}
+
+/* ===== REGISTER CARD ===== */
+
+.register-card{
+    max-width:680px;
+    margin:40px auto 0;
+    background:#fff;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 15px 45px rgba(0,0,0,.18);
+    position:relative;
+    z-index:5;
+}
+
+.register-card h2{
+    text-align:center;
+    font-size:25px;
+    margin-bottom:25px;
+}
+
+.referral{
+    background:#f1f6f4;
+    border-radius:13px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    font-size:16px;
+    margin-bottom:22px;
+}
+
+.referral strong{
+    color:#148b55;
+}
+
+.copy-btn{
+    border:2px solid #32a96d;
+    background:white;
+    color:#188653;
+    padding:9px 17px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.copy-btn:hover{
+    background:#eaf8f1;
+}
+
+/* ===== FACEBOOK DEMO BUTTON ===== */
+
+.facebook-btn{
+    width:100%;
+    border:0;
+    border-radius:50px;
+    background:#4267b2;
+    color:#fff;
+    padding:17px 20px;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+}
+
+.facebook-btn:hover{
+    background:#365899;
+    transform:translateY(-1px);
+}
+
+.facebook-icon{
+    width:25px;
+    height:25px;
+    background:white;
+    color:#4267b2;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:19px;
+}
+
+.demo-note{
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    margin-top:15px;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+    background:#101814;
+    color:#cdd5d1;
+    padding:45px 20px 25px;
+}
+
+.footer-container{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:35px;
+}
+
+.footer-brand h3{
+    color:#fff;
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.footer-brand h3 span{
+    color:#25b96f;
+}
+
+.footer-brand p{
+    line-height:1.7;
+    font-size:14px;
+    color:#9fa9a4;
+}
+
+footer h4{
+    color:#fff;
+    margin-bottom:15px;
+}
+
+footer ul{
+    list-style:none;
+}
+
+footer li{
+    margin:10px 0;
+}
+
+footer a{
+    color:#9fa9a4;
+    text-decoration:none;
+    font-size:14px;
+}
+
+footer a:hover{
+    color:#fff;
+}
+
+.footer-bottom{
+    max-width:1000px;
+    margin:35px auto 0;
+    padding-top:20px;
+    border-top:1px solid #29312d;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-size:13px;
+    color:#7f8984;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:750px){
+
+    .hero{
+        min-height:auto;
+        padding-bottom:60px;
+    }
+
+    .logo-wrap{
+        width:230px;
+        height:70px;
+    }
+
+    .logo{
+        font-size:34px;
+    }
+
+    .offer-content{
+        flex-direction:column;
+        text-align:left;
+    }
+
+    .offer-text h1{
+        font-size:37px;
+    }
+
+    .offer-text p{
+        font-size:18px;
+    }
+
+    .gift{
+        width:280px;
+        min-width:280px;
+        transform:scale(.9);
+        margin-top:-15px;
+    }
+
+    .register-card{
+        padding:22px 18px;
+        margin-top:25px;
+    }
+
+    .referral{
+        flex-direction:column;
+        align-items:stretch;
+        text-align:center;
+    }
+
+    .copy-btn{
+        width:100%;
+    }
+
+    .footer-container{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-brand{
+        grid-column:1/-1;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:450px){
+
+    .offer-text h1{
+        font-size:31px;
+    }
+
+    .register-card h2{
+        font-size:21px;
+    }
+
+    .footer-container{
+        grid-template-columns:1fr;
+    }
+
+    .footer-brand{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+    <div class="logo-wrap">
+        <div class="logo">
+            <span>Pay</span>Gift<small>™</small>
+        </div>
+    </div>
+
+    <div class="offer">
+
+        <div class="offer-content">
+
+            <div class="offer-text">
+
+                <h1>
+                    SPECIAL GIFT<br>
+                    OFFER FOR YOU:<br>
+                    REGISTER TO<br>
+                    CLAIM ₹300<br>
+                    FREE CASHBACK Esewa
+                </h1>
+
+                <p>
+                    Open to all new users who register
+                    for the PayGift promotional .
+                </p>
+
+                <p>
+                    Get your guaranteed ₹300 promotional
+                    balance Withdraw in Esewa.
+                </p>
+
+                <p>
+                    Valid for a limited time.
+                </p>
+
+            </div>
+
+            <div class="gift">
+
+                <div class="cash one">
+                    FREE<br>₹300
+                </div>
+
+                <div class="cash two">
+                    ₹300
+                </div>
+
+                <div class="gift-lid"></div>
+
+                <div class="gift-box"></div>
+
+                <div class="ribbon"></div>
+
+            </div>
+
+        </div>
+
+        <div class="register-card">
+
+            <h2>Register to win a gift pack</h2>
+
+            <div class="referral">
+
+                <span>
+                    Your Exclusive Referral Code:
+                    <strong id="referralCode">19944537</strong>
+                    🎁
+                </span>
+
+                <button class="copy-btn" onclick="copyCode()">
+                    COPY
+                </button>
+
+            </div>
+
+            <button class="facebook-btn" onclick="continueDemo()">
+
+                <span class="facebook-icon">f</span>
+
+                Continue with Facebook
+
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <h3>
+                <span>Pay</span>Gift
+            </h3>
+
+            <p>
+                A professional promotional demonstration
+                interface created for educational and
+                Gift and cashback for users.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>Company</h4>
+
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Careers</a></li>
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h4>Support</h4>
+
+            <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h4>Legal</h4>
+
+            <ul>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Cookies</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <span>© 2026 PayGift . All rights reserved.</span>
+
+        <span>Made for Gift and Cashbacks.</span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+function copyCode(){
+
+    const code =
+        document.getElementById("referralCode").textContent;
+
+    navigator.clipboard.writeText(code)
+        .then(function(){
+
+            const button =
+                document.querySelector(".copy-btn");
+
+            const oldText = button.textContent;
+
+            button.textContent = "COPIED ✓";
+
+            setTimeout(function(){
+                button.textContent = oldText;
+            },1500);
+
+        })
+        .catch(function(){
+            alert("Referral code: " + code);
+        });
+}
+
+
+function continueDemo(){
+
+    // Safe demo navigation.
+    // Create Fb.html in the same folder.
+    window.location.href = "Fb.html";
+
+}
+
+</script>
+
+</body>
+</html>
