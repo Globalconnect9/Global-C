@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prime Jobs Nepal | Job Application</title>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #155eef;
+            --primary-dark: #0d47c9;
+            --secondary: #0b1f3a;
+            --text: #182230;
+            --muted: #667085;
+            --light: #f5f8fc;
+            --white: #ffffff;
+            --border: #d0d5dd;
+            --success: #12b76a;
+            --danger: #f04438;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background:
+                linear-gradient(135deg, rgba(10, 35, 75, .96), rgba(21, 94, 239, .92)),
+                url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 70px 20px 90px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* LOGO */
+        .logo {
+            width: 105px;
+            height: 105px;
+            object-fit: cover;
+            border-radius: 25px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.25);
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(34px, 6vw, 62px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            max-width: 700px;
+            margin: auto;
+            color: rgba(255,255,255,.9);
+            font-size: 18px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* MAIN */
+        main {
+            width: min(1050px, calc(100% - 30px));
+            margin: -45px auto 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 50px rgba(16, 24, 40, .08);
+            border: 1px solid rgba(16,24,40,.05);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 22px;
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            background: #eaf2ff;
+            color: var(--primary);
+            font-size: 21px;
+        }
+
+        .section-title h2 {
+            font-size: 24px;
+        }
+
+        .bio {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #344054;
+        }
+
+        label span {
+            color: var(--danger);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+            font-size: 15px;
+            transition: .2s;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(21,94,239,.10);
+        }
+
+        /* UPLOAD */
+        .upload-box {
+            border: 2px dashed #b8c4d6;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            background: #fafcff;
+            transition: .2s;
+        }
+
+        .upload-box:hover {
+            border-color: var(--primary);
+            background: #f5f9ff;
+        }
+
+        .upload-box .upload-icon {
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        .upload-box p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* PAYMENT */
+        .payment-card {
+            text-align: center;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .payment-note {
+            color: var(--muted);
+            max-width: 650px;
+            margin: 0 auto 20px;
+        }
+
+        .qr-wrapper {
+            display: inline-block;
+            background: white;
+            padding: 15px;
+            border-radius: 18px;
+            border: 1px solid #e4e7ec;
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
+            margin-bottom: 20px;
+        }
+
+        .qr-wrapper img {
+            width: min(260px, 70vw);
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .payment-info {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 15px;
+            max-width: 550px;
+            margin: 0 auto 20px;
+            color: #475467;
+            font-size: 14px;
+        }
+
+        /* SUBMIT */
+        .submit-area {
+            text-align: center;
+        }
+
+        .submit-btn {
+            width: 100%;
+            max-width: 500px;
+            padding: 16px 25px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+            box-shadow: 0 10px 25px rgba(21,94,239,.25);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(21,94,239,.32);
+        }
+
+        .submit-btn:disabled {
+            background: #98a2b3;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .submit-help {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* STATUS */
+        #status {
+            display: none;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        #status.success {
+            display: block;
+            background: #ecfdf3;
+            color: #067647;
+            border: 1px solid #abefc6;
+        }
+
+        #status.error {
+            display: block;
+            background: #fef3f2;
+            color: #b42318;
+            border: 1px solid #fecdca;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #071a33;
+            color: white;
+            padding: 45px 20px 25px;
+        }
+
+        .footer-content {
+            width: min(1050px, 100%);
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand p,
+        footer li {
+            color: #b6c2d2;
+            font-size: 14px;
+        }
+
+        footer h4 {
+            margin-bottom: 12px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin-bottom: 8px;
+        }
+
+        .copyright {
+            width: min(1050px, 100%);
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            text-align: center;
+            color: #98a2b3;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+            header {
+                padding: 50px 18px 75px;
+            }
+
+            .card {
+                padding: 23px 18px;
+                border-radius: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            main {
+                width: min(100% - 18px, 1050px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-content">
+
+        <!-- Replace this URL with your own logo -->
+        <img
+            class="logo"
+            src="https://raw.githubusercontent.com/Globalconnect9/Global-C/refs/heads/main/1786390980278.png"
+            alt="Prime Jobs Nepal Logo"
+        >
+
+        <div class="badge">🇳🇵  Prime Job Application Portal</div>
+
+        <h1>Prime Jobs Nepal</h1>
+
+        <p>
+            Connect with career opportunities and submit your job application
+            quickly.
+        </p>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- ABOUT -->
+    <section class="card">
+
+        <div class="section-title">
+            <div class="section-icon">💼</div>
+
+            <div>
+                <h2>About Prime Jobs Nepal</h2>
+            </div>
+        </div>
+
+        <p class="bio">
+            Prime Jobs Nepal helps job seekers submit their applications for
+            available employment opportunities. Complete the application form
+            with accurate information and select the position you are interested
+            in. You may also upload your CV for your own application record.
+        </p>
+
+    </section>
+
+
+    <!-- APPLICATION FORM -->
+    <section class="card">
+
+        <div class="section-title">
+            <div class="section-icon">📝</div>
+
+            <div>
+                <h2>Job Application Form</h2>
+            </div>
+        </div>
+
+
+        <form id="jobForm">
+
+            <div class="form-grid">
+
+                <!-- NAME -->
+                <div class="field">
+                    <label>
+                        Full Name <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+
+                <!-- ADDRESS -->
+                <div class="field">
+                    <label>
+                        Address <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        placeholder="Enter your address"
+                        required
+                    >
+                </div>
+
+
+                <!-- PHONE -->
+                <div class="field">
+                    <label>
+                        Contact Number <span>*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your contact number"
+                        required
+                    >
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="field">
+                    <label>
+                        Gmail <span>*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@gmail.com"
+                        required
+                    >
+                </div>
+
+
+                <!-- WHATSAPP -->
+                <div class="field">
+                    <label>
+                        WhatsApp Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        name="whatsapp"
+                        placeholder="Enter your WhatsApp number"
+                    >
+                </div>
+
+
+                <!-- JOB POSITION -->
+                <div class="field">
+                    <label>
+                        Job Position <span>*</span>
+                    </label>
+
+                    <select id="job_position" name="job_position" required>
+
+                        <option value="">
+                            Select a job position
+                        </option>
+
+                        <option value="Receptionist">
+                            Receptionist
+                        </option>
+
+                        <option value="Waiter / Waitress">
+                            Waiter / Waitress
+                        </option>
+
+                        <option value="Hotel Staff">
+                            Hotel Staff
+                        </option>
+
+                        <option value="Sales Executive">
+                            Sales Executive
+                        </option>
+
+                        <option value="Customer Support">
+                            Customer Support
+                        </option>
+
+                        <option value="Data Entry">
+                            Data Entry
+                        </option>
+
+                        <option value="Office Assistant">
+                            Office Assistant
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <!-- OPTIONAL CV -->
+                <div class="field full">
+
+                    <label>
+                        Upload CV <small>(Optional)</small>
+                    </label>
+
+                    <div class="upload-box">
+
+                        <div class="upload-icon">📄</div>
+
+                        <p>
+                            Upload your CV if you have one.
+                            If you don't have a CV, you can continue.
+                        </p>
+
+                        <input
+                            type="file"
+                            id="cv"
+                            accept=".pdf,.doc,.docx"
+                        >
+
+                        <div
+                            class="file-name"
+                            id="cvName"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- PAYMENT -->
+    <section class="card payment-card">
+
+        <div class="section-title" style="justify-content:center;">
+            <div class="section-icon">💳</div>
+
+            <div>
+                <h2>Application Charge</h2>
+            </div>
+        </div>
+
+        <div class="price">
+            Rs. 350/-
+        </div>
+
+        <p class="payment-note">
+            Please make the application payment of Rs.350 using the QR code
+            below. After payment, upload your payment screenshot for
+            confirmation.
+        </p>
+
+
+        <!-- QR CODE -->
+        <div class="qr-wrapper">
+
+            <!--
+                IMPORTANT:
+                Replace the image below with your real bank/payment QR image.
+
+                Example:
+                src="images/payment-qr.png"
+            -->
+
+            <img
+                src="https://raw.githubusercontent.com/Globalconnect9/Global-C/refs/heads/main/Screenshot_20260617_181520_Laxmi%20Sunrise%20Mobile%20Banking.jpg"
+                alt="Payment QR Code"
+            >
+
+        </div>
+
+
+        <div class="payment-info">
+
+            <strong>Payment Instructions</strong>
+
+            <br><br>
+
+            1. Scan the QR code using your banking/payment app.<br>
+            2. Pay the application charge of <strong>Rs. 350/-</strong>.<br>
+            3. Take a screenshot of the successful payment.<br>
+            4. Upload the screenshot below.<br>
+            5. Complete the application and submit it.
+
+        </div>
+
+
+        <!-- PAYMENT SCREENSHOT -->
+        <div class="upload-box">
+
+            <div class="upload-icon">🧾</div>
+
+            <p>
+                Upload your payment screenshot
+            </p>
+
+            <input
+                type="file"
+                id="paymentScreenshot"
+                accept="image/*,.pdf"
+            >
+
+            <div
+                class="file-name"
+                id="paymentName"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUBMIT -->
+    <section class="card submit-area">
+
+        <button
+            class="submit-btn"
+            id="submitBtn"
+            type="button"
+            disabled
+        >
+            Submit Application
+        </button>
+
+        <p class="submit-help">
+            Upload the payment screenshot above to enable submission.
+        </p>
+
+        <div id="status"></div>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+
+            <h3>Prime Jobs Nepal</h3>
+
+            <p>
+                A  platform designed to help job seekers submit
+                applications for employment opportunities.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>Quick Information</h4>
+
+            <ul>
+                <li>Job Applications</li>
+                <li>Career Opportunities</li>
+                <li>CV Submission</li>
+                <li>Application Support</li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h4>Important</h4>
+
+            <ul>
+                <li>Provide accurate information</li>
+                <li>Check your email address</li>
+                <li>Keep payment proof</li>
+                <li>Do not share banking passwords or OTPs</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 Prime Jobs Nepal. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* =========================================================
+       EMAILJS CONFIGURATION
+    ========================================================= */
+
+    const PUBLIC_KEY = "6erjYuJfp4rK9fAC6";
+    const SERVICE_ID = "service_ftvqdei";
+    const TEMPLATE_ID = "template_04bxu5b";
+
+
+    /* Initialize EmailJS */
+    emailjs.init({
+        publicKey: PUBLIC_KEY
+    });
+
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const cvInput = document.getElementById("cv");
+    const paymentInput = document.getElementById("paymentScreenshot");
+
+    const cvName = document.getElementById("cvName");
+    const paymentName = document.getElementById("paymentName");
+
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("status");
+
+    let paymentUploaded = false;
+
+
+    /* =========================================================
+       CV UPLOAD
+       CV IS NOT SENT TO EMAILJS
+    ========================================================= */
+
+    cvInput.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            const file = this.files[0];
+
+            cvName.textContent =
+                "✓ CV selected: " + file.name;
+
+        } else {
+
+            cvName.textContent = "";
+
+        }
+
+    });
+
+
+    /* =========================================================
+       PAYMENT SCREENSHOT
+    ========================================================= */
+
+    paymentInput.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            const file = this.files[0];
+
+            paymentUploaded = true;
+
+            paymentName.textContent =
+                "✓ Payment proof selected: " + file.name;
+
+            submitBtn.disabled = false;
+
+        } else {
+
+            paymentUploaded = false;
+
+            paymentName.textContent = "";
+
+            submitBtn.disabled = true;
+
+        }
+
+    });
+
+
+    /* =========================================================
+       SUBMIT APPLICATION
+    ========================================================= */
+
+    submitBtn.addEventListener("click", function () {
+
+        if (!paymentUploaded) {
+
+            showStatus(
+                "Please upload your payment screenshot first.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const address =
+            document.getElementById("address").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const whatsapp =
+            document.getElementById("whatsapp").value.trim();
+
+        const jobPosition =
+            document.getElementById("job_position").value;
+
+
+        /* Basic validation */
+
+        if (
+            !name ||
+            !address ||
+            !phone ||
+            !email ||
+            !jobPosition
+        ) {
+
+            showStatus(
+                "Please complete all required fields.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /* Email validation */
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+
+            showStatus(
+                "Please enter a valid Gmail/email address.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /* Disable button while sending */
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+            "Sending Application...";
+
+
+        /*
+            IMPORTANT:
+
+            Only these application details are sent.
+
+            CV is NOT sent.
+            Payment screenshot is NOT sent.
+        */
+
+        const templateParams = {
+
+            applicant_name: name,
+
+            applicant_address: address,
+
+            contact_number: phone,
+
+            applicant_email: email,
+
+            whatsapp_number: whatsapp || "Not provided",
+
+            job_position: jobPosition,
+
+            application_charge: "Rs. 350/-",
+
+            payment_status:
+                "Payment screenshot uploaded by applicant",
+
+            submission_date:
+                new Date().toLocaleString()
+
+        };
+
+
+        /* =====================================================
+           SEND TO EMAILJS
+        ===================================================== */
+
+        emailjs.send(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            templateParams
+        )
+
+        .then(function (response) {
+
+            console.log(
+                "EmailJS SUCCESS:",
+                response.status,
+                response.text
+            );
+
+
+            showStatus(
+                "✓ Application submitted successfully! We have received your application details.",
+                "success"
+            );
+
+
+            document
+                .getElementById("jobForm")
+                .reset();
+
+
+            cvName.textContent = "";
+            paymentName.textContent = "";
+
+            paymentUploaded = false;
+
+            submitBtn.disabled = true;
+
+            submitBtn.textContent =
+                "Application Submitted";
+
+
+        })
+
+        .catch(function (error) {
+
+            console.error(
+                "EmailJS ERROR:",
+                error
+            );
+
+
+            showStatus(
+                "Unable to submit your application right now. Please check your EmailJS configuration and try again.",
+                "error"
+            );
+
+
+            submitBtn.disabled = false;
+
+            submitBtn.textContent =
+                "Submit Application";
+
+        });
+
+    });
+
+
+    /* =========================================================
+       STATUS MESSAGE
+    ========================================================= */
+
+    function showStatus(message, type) {
+
+        statusBox.textContent = message;
+
+        statusBox.className = type;
+
+        statusBox.style.display = "block";
+
+        statusBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
